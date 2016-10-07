@@ -87,7 +87,38 @@ int main(int argc, const char * argv[]) {
     min_heights3.push_back(5);
     min_heights3.push_back(13);
     min_heights3.push_back(4);
+    
     relayout(table3, min_heights3);
+    
+    Table table4;
+    table4.width = 20;
+    table4.height = 9;
+    table4.cells.push_back((Rect){0, 0, 5, 6});
+    table4.cells.push_back((Rect){5, 0, 15,3 });
+    table4.cells.push_back((Rect){5, 3, 10,3});
+    table4.cells.push_back((Rect){15, 3, 5,3});
+    table4.cells.push_back((Rect){0, 6, 10,3});
+    table4.cells.push_back((Rect){10,6,10, 3});
+    
+    min_heights3.clear();
+    min_heights3.push_back(7);
+    min_heights3.push_back(10);
+    min_heights3.push_back(13);
+    min_heights3.push_back(7);
+    min_heights3.push_back(9);
+    min_heights3.push_back(2);
+    
+    relayout(table4, min_heights3);
+    
+    min_heights3.clear();
+    min_heights3.push_back(9);
+    min_heights3.push_back(10);
+    min_heights3.push_back(13);
+    min_heights3.push_back(7);
+    min_heights3.push_back(9);
+    min_heights3.push_back(2);
+    
+    //relayout(table4, min_heights3);
     
     system("pause");
     return 0;
@@ -140,12 +171,13 @@ void relayout(Table &table, const std::vector<int> &cell_min_heights){
         endfor:
             {}
     }
-    
     for( int i = 0; i < layout_index.size(); i++){
         tmp[layout_index[i]].height = cell_min_heights[layout_index[i]];
     }
-
     
+ 
+
+    /*
     for( int i = 0; i < tmp.size(); i++){
         for( int j = 0 ; j < tmp.size(); j++){
             if( i == j ){
@@ -155,12 +187,33 @@ void relayout(Table &table, const std::vector<int> &cell_min_heights){
                 tmp[j].y = tmp[i].height;
             }
         }
-    }
+    }*/
     
+    int newy[tmp.size()];
+    memset( newy, 0, tmp.size()*sizeof(int) );
+    
+    for( int i = 0; i < tmp.size(); i++ ){
+         int y = 0;
+         for( int j = 0; j < layout_index.size(); j++ ){
+              if( tmp[i].y == 0 || layout_index[j] == i ){
+                  break;
+              }
+              if( tmp[i].y >  tmp[layout_index[j]].y  ){
+                  y += cell_min_heights[layout_index[j]];
+              }
+         }
+         newy[i] = y;
+    }
+
+    for( int i = 0; i < tmp.size(); i++ ){
+         tmp[i].y = newy[i];
+    }
+
     int count = 0;
     for( vector<Rect>::iterator it = tmp.begin(); it != tmp.end(); it++){
         Rect r = (Rect)(*it);
-        cout << count++ << " " << r.x << "," <<  r.y << " " << r.height << endl;
+        cout << count << " " << r.x << "," << r.y << " " << r.height << endl;
+        count++;
     }
     
     return ;
