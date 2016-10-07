@@ -74,6 +74,22 @@ int main(int argc, const char * argv[]) {
     
     relayout(table2, min_heights);
     
+    Table table3;
+    table3.width = 20;
+    table3.height = 20;
+    table3.cells.push_back((Rect){0, 0,10, 10});
+    table3.cells.push_back((Rect){10,0,10,10 });
+    table3.cells.push_back((Rect){0,10,10,10});
+    table3.cells.push_back((Rect){10,10,10,10});
+    
+    vector<int> min_heights3;
+    min_heights3.push_back(17);
+    min_heights3.push_back(5);
+    min_heights3.push_back(13);
+    min_heights3.push_back(4);
+    relayout(table3, min_heights3);
+    
+    system("pause");
     return 0;
 }
 
