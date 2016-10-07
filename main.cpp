@@ -106,37 +106,10 @@ void relayout(Table &table, const std::vector<int> &cell_min_heights){
     
     const int relayout_height = find_min_height(table, cell_min_heights, layout_index);
     cout << relayout_height << endl;
-    
-    for (int i = 0; i < layout_index.size(); i++) {
-        is_relayout[ layout_index[i] ] = true;
-    }
+
     
     vector<Rect> tmp = table.cells;
 
-    
-//    while( find( is_relayout, is_relayout+ tmp.size(), false) != is_relayout+tmp.size()){
-//        for( int x = 0; x < table.width; x++ ){
-//            vector<int> rslt =line_sweep(x, tmp);
-//            int rslt_size = (int)rslt.size();
-//            int index = -1;
-//            int fix_height = 0;
-//            for( int i = 0; i < rslt.size(); i++ ){
-//                if( is_relayout[rslt[i]] == true ){
-//                    rslt_size--;
-//                    fix_height += cell_min_heights[rslt[i]];
-//                }else{
-//                    index = rslt[i];
-//                }
-//            }
-//            if( rslt_size == 1 ){
-//                tmp[index].height = relayout_height - fix_height;
-//                cout << index << " " <<  tmp[index].height << endl;
-//                is_relayout[index] = true;
-//                x = tmp[index].width-1;
-//            }
-//        
-//        }
-//    }
     for( int i = 0 ; i < tmp.size(); i++ ){
         int reheight = 0;
         for( int j = 0; j < layout_index.size(); j++){
